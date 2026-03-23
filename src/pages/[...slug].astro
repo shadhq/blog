@@ -1,7 +1,7 @@
 ---
 import { getCollection, render } from "astro:content";
-import Layout from "../../layouts/Layout.astro";
-import CodeCopyScripts from "../../components/CodeCopyScripts.astro";
+import Layout from "../layouts/Layout.astro";
+import CodeCopyScripts from "../components/CodeCopyScripts.astro";
 
 export async function getStaticPaths() {
     const posts = await getCollection("blog");
@@ -31,9 +31,9 @@ const { Content } = await render(post);
                 class="mb-4 text-[10px] md:text-xs text-tokyo-comment uppercase font-bold flex space-x-2 items-center break-words"
             >
                 <a
-                    href="/#blog"
+                    href="/"
                     class="hover:text-tokyo-cyan transition-colors shrink-0"
-                    >cd /blog</a
+                    >cd ~/</a
                 >
                 <span class="shrink-0">&gt;</span>
                 <span class="text-tokyo-green font-mono">cat {post.id}.md</span>

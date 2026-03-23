@@ -327,7 +327,7 @@ posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 						</p>
 						{posts.map((post) => (
 							<a
-								href={`/blog/${post.id}`}
+								href={`/${post.id}`}
 								data-tags={post.data.tags.join(",")}
 								class="blog-card block w-full glass-card p-5 md:p-6 rounded-lg hover:border-tokyo-cyan transition-all duration-300 transform hover:-translate-y-1 hover:shadow-[0_0_15px_rgba(125,207,255,0.2)] group"
 							>
