@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Monaspace Neon';
+  src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@v1.101/fonts/webfonts/MonaspaceNeon-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Monaspace Neon';
+  src: url('https://cdn.jsdelivr.net/gh/githubnext/monaspace@v1.101/fonts/webfonts/MonaspaceNeon-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@theme {
+  --color-tokyo-bg: #1a1b26;
+  --color-tokyo-bg-alt: #16161e;
+  --color-tokyo-fg: #c0caf5;
+  --color-tokyo-comment: #565f89;
+  --color-tokyo-blue: #7aa2f7;
+  --color-tokyo-cyan: #7dcfff;
+  --color-tokyo-purple: #bb9af7;
+  --color-tokyo-magenta: #f7768e;
+  --color-tokyo-orange: #ff9e64;
+  --color-tokyo-green: #9ece6a;
+  --color-tokyo-yellow: #e0af68;
+
+  --font-mono: 'Monaspace Neon', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+@layer base {
+  :root {
+    --bg: var(--color-tokyo-bg);
+    --fg: var(--color-tokyo-fg);
+    --bg-alt: var(--color-tokyo-bg-alt);
+    --accent: var(--color-tokyo-blue);
+    --accent-glow: var(--color-tokyo-cyan);
+  }
+
+  html {
+    @apply bg-[var(--bg)] text-[var(--fg)] font-mono selection:bg-tokyo-purple/30 selection:text-tokyo-fg;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply antialiased min-h-screen relative overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-white;
+  }
+}
+
+@layer utilities {
+  .glow-text {
+    text-shadow: 0 0 10px var(--accent-glow), 0 0 20px var(--accent-glow);
+  }
+
+  .glow-box {
+    box-shadow: 0 0 15px theme('color.tokyo.blue/0.2'), inset 0 0 20px theme('color.tokyo.blue/0.1');
+    border-color: theme('color.tokyo.blue/0.5');
+  }
+
+  .glass-card {
+    @apply bg-tokyo-bg-alt/80 backdrop-blur-md border border-tokyo-comment/30;
+  }
+}
+
+@keyframes lights {
+  0%, 100% {
+    color: hsl(230, 40%, 80%);
+    text-shadow:
+      0 0 1em hsla(320, 100%, 50%, 0.2),
+      0 0 0.125em hsla(320, 100%, 60%, 0.3),
+      -1em -0.125em 0.5em hsla(40, 100%, 60%, 0),
+      1em 0.125em 0.5em hsla(200, 100%, 60%, 0);
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  
+  40% { 
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1.5em hsla(320, 100%, 50%, 0.5),
+      0 0 0.2em hsla(320, 100%, 60%, 0.5),
+      -0.8em -0.2em 0.6em hsla(40, 100%, 60%, 0.3),
+      0.8em 0.2em 0.6em hsla(200, 100%, 60%, 0.5);
+    transform: translate3d(0, -8px, 0) scale(1.01);
+  }
+  
+  60% { 
+    color: #c0caf5;
+    text-shadow:
+      0 0 2em hsla(230, 100%, 50%, 0.6),
+      0 0 0.3em hsla(190, 100%, 90%, 0.6),
+      -0.2em -0.1em 0.3em hsla(260, 100%, 60%, 0.4),
+      0.2em 0.1em 0.3em hsla(280, 100%, 60%, 0.6);
+    transform: translate3d(0, -12px, 0) scale(1.02);
+  }
+  
+  85% {
+    color: hsl(230, 80%, 90%);
+    text-shadow:
+      0 0 1.5em hsla(320, 100%, 50%, 0.5),
+      0 0 0.2em hsla(320, 100%, 60%, 0.5),
+      0.8em -0.2em 0.6em hsla(40, 100%, 60%, 0.3),
+      -0.8em 0.2em 0.6em hsla(200, 100%, 60%, 0.5);
+    transform: translate3d(0, -4px, 0) scale(1.01);
+  }
+}
+
+.lights-text {
+  animation: lights 9s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  display: inline-block;
+  will-change: transform, text-shadow;
+  backface-visibility: hidden;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-cursor-blink {
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@layer components {
+  .prose-tokyo {
+    @apply text-tokyo-fg/90 leading-relaxed font-mono text-[15px] md:text-base;
+  }
+
+  .prose-tokyo h1, .prose-tokyo h2, .prose-tokyo h3, .prose-tokyo h4 {
+    @apply text-tokyo-blue font-bold mt-12 mb-6 scroll-mt-24 flex relative w-fit;
+  }
+
+  .prose-tokyo h2 > a, .prose-tokyo h3 > a {
+    @apply outline-none text-tokyo-blue hover:text-tokyo-cyan no-underline;
+  }
+
+  .prose-tokyo h2 {
+    @apply text-2xl md:text-3xl;
+    border-bottom: 1px solid rgba(86, 95, 137, 0.3);
+    padding-bottom: 0.5rem;
+  }
+
+  .prose-tokyo h3 {
+    @apply text-xl md:text-2xl;
+  }
+
+  .prose-tokyo p {
+    @apply mb-6;
+  }
+
+  .prose-tokyo a {
+    @apply text-tokyo-cyan underline decoration-tokyo-cyan/30 underline-offset-4 hover:decoration-tokyo-cyan transition-all;
+  }
+
+  .prose-tokyo ul {
+    @apply list-disc list-outside ml-6 mb-6 space-y-2;
+  }
+
+  .prose-tokyo ol {
+    @apply list-decimal list-outside ml-6 mb-6 space-y-2;
+  }
+
+  .prose-tokyo blockquote {
+    @apply border-l-4 border-tokyo-purple pl-6 py-1 my-6 italic text-tokyo-comment bg-tokyo-bg-alt/50 rounded-r pr-4;
+  }
+
+  .prose-tokyo pre {
+    @apply bg-tokyo-bg-alt p-4 rounded-lg my-6 overflow-x-auto border border-tokyo-comment/20 text-sm relative selection:bg-tokyo-comment/50;
+  }
+
+  .prose-tokyo code {
+    @apply bg-tokyo-bg-alt w-fit px-1.5 py-0.5 rounded text-tokyo-magenta text-[0.9em] border border-tokyo-comment/20;
+  }
+
+  .prose-tokyo pre code {
+    @apply bg-transparent p-0 border-none text-[1em];
+  }
+
+  .prose-tokyo .callout-info {
+    @apply bg-tokyo-bg-alt border-l-4 border-tokyo-blue p-4 my-6 rounded;
+  }
+
+  .prose-tokyo .callout-warning {
+    @apply border-tokyo-yellow text-tokyo-yellow bg-tokyo-yellow/10 p-4 my-6 rounded;
+  }
+}

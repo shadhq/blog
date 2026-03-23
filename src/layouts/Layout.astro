@@ -1,0 +1,200 @@
+---
+import '../styles/global.css';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "I spend more time configuring my computer than using it." } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content={description} />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title} | shadhq</title>
+		<script defer data-domain="blog.shadhq.com" src="https://plausible.io/js/script.js"></script>
+	</head>
+	<body class="bg-transparent text-tokyo-fg font-mono overflow-x-hidden transition-colors duration-500">
+		<canvas id="canvas-starfield" class="fixed inset-0 w-full h-full z-0 bg-tokyo-bg" style="pointer-events: none;"></canvas>
+		
+		<button id="motion-toggle" class="fixed top-4 right-4 z-40 bg-tokyo-bg-alt/80 backdrop-blur-md border border-tokyo-comment text-tokyo-comment hover:text-tokyo-fg hover:border-tokyo-fg px-3 py-1.5 rounded-md text-xs transition-all duration-300 shadow-lg cursor-pointer uppercase tracking-widest hidden md:block">
+			Motion: ON
+		</button>
+
+		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10 flex flex-col min-h-screen">
+
+			<main class="flex-grow w-full">
+				<slot />
+			</main>
+			
+			<footer class="mt-auto py-8 text-center text-sm text-tokyo-comment w-full">
+				<p>shadhq © {new Date().getFullYear()}</p>
+				<p class="mt-2 text-xs opacity-50">Try the Konami code: <kbd>↑</kbd> <kbd>↑</kbd> <kbd>↓</kbd> <kbd>↓</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>←</kbd> <kbd>→</kbd> <kbd>B</kbd> <kbd>A</kbd></p>
+			</footer>
+		</div>
+
+		<script>
+			// Interactive Space Background
+			const canvas = document.getElementById('canvas-starfield') as HTMLCanvasElement;
+			if (canvas) {
+				const context = canvas.getContext('2d');
+				const STAR_COLOR = '#7aa2f7';
+				const STAR_SIZE = 3;
+				const STAR_MIN_SCALE = 0.2;
+				const OVERFLOW_THRESHOLD = 50;
+				const STAR_COUNT = (window.innerWidth + window.innerHeight) / 10;
+				let scale = 1;
+				let width: number, height: number;
+				let pointerX: number | null = null, pointerY: number | null = null;
+				let velocity = { x: 0, y: 0, tx: 0, ty: 0, z: 0.0005 };
+				let touchInput = false;
+				let isMotionEnabled = localStorage.getItem('shadhq_motion') !== 'off';
+
+				const motionToggle = document.getElementById('motion-toggle');
+				if (motionToggle) {
+					motionToggle.innerText = isMotionEnabled ? 'Motion: ON' : 'Motion: OFF';
+					motionToggle.addEventListener('click', () => {
+						isMotionEnabled = !isMotionEnabled;
+						localStorage.setItem('shadhq_motion', isMotionEnabled ? 'on' : 'off');
+						motionToggle.innerText = isMotionEnabled ? 'Motion: ON' : 'Motion: OFF';
+					});
+				}
+
+				const stars = Array.from({ length: STAR_COUNT }, () => ({
+					x: 0, y: 0, z: STAR_MIN_SCALE + Math.random() * (1 - STAR_MIN_SCALE)
+				}));
+
+				function placeStar(star: any) {
+					star.x = Math.random() * width;
+					star.y = Math.random() * height;
+				}
+
+				function recycleStar(star: any) {
+					let direction = 'z';
+					let vx = Math.abs(velocity.x), vy = Math.abs(velocity.y);
+					
+					if (vx > 1 || vy > 1) {
+						let axis = (vx > vy) 
+							? (Math.random() < vx / (vx + vy) ? 'h' : 'v')
+							: (Math.random() < vy / (vx + vy) ? 'v' : 'h');
+						
+						if (axis === 'h') direction = velocity.x > 0 ? 'l' : 'r';
+						else direction = velocity.y > 0 ? 't' : 'b';
+					}
+					
+					star.z = STAR_MIN_SCALE + Math.random() * (1 - STAR_MIN_SCALE);
+					if (direction === 'z') {
+						star.z = 0.1;
+						star.x = Math.random() * width;
+						star.y = Math.random() * height;
+					} else if (direction === 'l') {
+						star.x = -OVERFLOW_THRESHOLD;
+						star.y = height * Math.random();
+					} else if (direction === 'r') {
+						star.x = width + OVERFLOW_THRESHOLD;
+						star.y = height * Math.random();
+					} else if (direction === 't') {
+						star.x = width * Math.random();
+						star.y = -OVERFLOW_THRESHOLD;
+					} else if (direction === 'b') {
+						star.x = width * Math.random();
+						star.y = height + OVERFLOW_THRESHOLD;
+					}
+				}
+
+				function resize() {
+					scale = window.devicePixelRatio || 1;
+					width = window.innerWidth * scale;
+					height = window.innerHeight * scale;
+					canvas.width = width;
+					canvas.height = height;
+					stars.forEach(placeStar);
+				}
+
+				function update() {
+					velocity.tx *= 0.96;
+					velocity.ty *= 0.96;
+					velocity.x += (velocity.tx - velocity.x) * 0.8;
+					velocity.y += (velocity.ty - velocity.y) * 0.8;
+					stars.forEach(star => {
+						star.x += velocity.x * star.z;
+						star.y += velocity.y * star.z;
+						star.x += (star.x - width / 2) * velocity.z * star.z;
+						star.y += (star.y - height / 2) * velocity.z * star.z;
+						star.z += velocity.z;
+						if (star.x < -OVERFLOW_THRESHOLD || star.x > width + OVERFLOW_THRESHOLD ||
+							star.y < -OVERFLOW_THRESHOLD || star.y > height + OVERFLOW_THRESHOLD) {
+							recycleStar(star);
+						}
+					});
+				}
+
+				function render() {
+					stars.forEach(star => {
+						if (!context) return;
+						context.beginPath();
+						context.lineCap = 'round';
+						context.lineWidth = STAR_SIZE * star.z * scale;
+						context.globalAlpha = 0.5 + 0.5 * Math.random();
+						context.strokeStyle = STAR_COLOR;
+						context.beginPath();
+						context.moveTo(star.x, star.y);
+						let tailX = velocity.x * 2, tailY = velocity.y * 2;
+						if (Math.abs(tailX) < 0.1) tailX = 0.5;
+						if (Math.abs(tailY) < 0.1) tailY = 0.5;
+						context.lineTo(star.x + tailX, star.y + tailY);
+						context.stroke();
+					});
+				}
+
+				function step() {
+					if (!context) return;
+					context.clearRect(0, 0, width, height);
+					update();
+					render();
+					requestAnimationFrame(step);
+				}
+
+				function movePointer(x: number, y: number) {
+					if (!isMotionEnabled) return;
+					if (typeof pointerX === 'number' && typeof pointerY === 'number') {
+						let ox = x - pointerX, oy = y - pointerY;
+						velocity.tx = velocity.tx + (ox / 8) * scale * (touchInput ? 1 : -1);
+						velocity.ty = velocity.ty + (oy / 8) * scale * (touchInput ? 1 : -1);
+					}
+					pointerX = x; pointerY = y;
+				}
+
+				window.addEventListener('resize', resize);
+				window.addEventListener('mousemove', (e) => { touchInput = false; movePointer(e.clientX, e.clientY); });
+				window.addEventListener('touchmove', (e) => { touchInput = true; movePointer(e.touches[0].clientX, e.touches[0].clientY); }, {passive: false});
+				window.addEventListener('touchend', () => { pointerX = null; pointerY = null; });
+				document.addEventListener('mouseleave', () => { pointerX = null; pointerY = null; });
+
+				resize();
+				step();
+			}
+
+			const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+			let konamiIndex = 0;
+			
+			window.addEventListener('keydown', (e) => {
+				if (e.key === konamiCode[konamiIndex]) {
+					konamiIndex++;
+					if (konamiIndex === konamiCode.length) {
+						console.log('Konami code detected! Access granted.');
+						konamiIndex = 0;
+					}
+				} else {
+					konamiIndex = 0;
+				}
+			});
+		</script>
+	</body>
+</html>

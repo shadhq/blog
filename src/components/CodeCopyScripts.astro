@@ -1,0 +1,44 @@
+---
+---
+<script>
+    const setupCodeBlocks = () => {
+        const blocks = document.querySelectorAll('pre');
+        
+        blocks.forEach((block) => {
+            // Check if processed
+            if (block.querySelector('.copy-button')) return;
+            
+            block.style.position = 'relative';
+
+            const button = document.createElement('button');
+            button.className = 'copy-button absolute top-2 right-2 bg-tokyo-bg/80 hover:bg-tokyo-comment text-tokyo-fg border border-tokyo-comment/40 px-2 py-1 rounded text-xs transition duration-200 backdrop-blur z-10';
+            button.innerText = 'Copy';
+            button.setAttribute('aria-label', 'Copy code to clipboard');
+
+            button.addEventListener('click', async () => {
+                const codeNode = block.querySelector('code');
+                if (!codeNode) return;
+                
+                const text = codeNode.innerText;
+                
+                try {
+                    await navigator.clipboard.writeText(text);
+                    button.innerText = 'Copied!';
+                    button.classList.add('text-tokyo-green', 'border-tokyo-green');
+                    
+                    setTimeout(() => {
+                        button.innerText = 'Copy';
+                        button.classList.remove('text-tokyo-green', 'border-tokyo-green');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy: ', err);
+                }
+            });
+
+            block.append(button);
+        });
+    };
+
+    setupCodeBlocks();
+    document.addEventListener('astro:page-load', setupCodeBlocks);
+</script>
