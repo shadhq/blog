@@ -28,7 +28,7 @@ posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 				<div class="flex flex-wrap justify-center gap-3">
 					<button
 						onclick="window.filterBlog('arch')"
-						class="inline-flex items-center px-4 py-1.5 rounded-none border border-[#1793d1]/50 bg-black/40 text-[#1793d1] text-sm md:text-base font-semibold shadow-[0_4px_10px_rgba(23,147,209,0.1)] hover:bg-[#1793d1]/20 hover:-translate-y-0.5 transition-all cursor-pointer backdrop-blur-sm"
+						class="inline-flex items-center px-4 py-1.5 rounded-none border border-[#1793d1]/50 bg-black/40 text-[#1793d1] text-sm md:text-base font-semibold shadow-[0_4px_10px_rgba(23,147,209,0.1)] hover:bg-[#1793d1]/20 hover:-translate-y-0.5 transition-all cursor-pointer"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 					href="https://resume.shadhq.com"
 					target="_blank"
 					rel="noopener noreferrer"
-					class="inline-flex items-center space-x-3 px-10 py-4 rounded-none border border-tokyo-purple/40 bg-tokyo-purple/5 text-tokyo-purple text-lg font-bold shadow-[0_4px_20px_rgba(187,154,247,0.15)] hover:bg-tokyo-purple/20 hover:border-tokyo-cyan hover:text-tokyo-cyan hover:shadow-[0_0_30px_rgba(125,207,255,0.25)] hover:-translate-y-1 transition-all duration-500 backdrop-blur-md group w-fit mx-auto sm:w-auto justify-center"
+					class="inline-flex items-center space-x-3 px-10 py-4 rounded-none border border-tokyo-purple/40 bg-tokyo-purple/5 text-tokyo-purple text-lg font-bold shadow-[0_4px_20px_rgba(187,154,247,0.15)] hover:bg-tokyo-purple/20 hover:border-tokyo-cyan hover:text-tokyo-cyan hover:shadow-[0_0_30px_rgba(125,207,255,0.25)] hover:-translate-y-1 transition-all duration-500 group w-fit mx-auto sm:w-auto justify-center"
 				>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
@@ -430,7 +430,7 @@ posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 					clearBtn.classList.add("hidden");
 				} else {
 					activeLabel.classList.remove("hidden");
-					activeLabel.innerHTML = `Running filter: <span class="text-tokyo-cyan">#${tag}</span>`;
+					activeLabel.textContent = `Filtered by #${tag}`;
 					clearBtn.classList.remove("hidden");
 				}
 			}
