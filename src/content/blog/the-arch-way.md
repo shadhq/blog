@@ -7,7 +7,7 @@ tags: ["arch"]
 
 ### Reclaiming the Machine
 
-The Arch Way is about choosing mastery. Most operating systems treat you like a user who cannot be trusted with the truth. They treat you like an inconvenience to be managed, or a threat to the system. This is why they implement features like forced restarts. Read Harry Brignull's [Deceptive Patterns](https://www.deceptive.design/types).
+The Arch Way is about choosing mastery. Most operating systems treat you like a user who cannot be trusted with the truth. They manage you. They restrict you. They abstract the machine away to keep things predictable at scale, treating you like an inconvenience or a threat. This is why forced restarts exist. Read Harry Brignull's [Deceptive Patterns](https://www.deceptive.design/types).
 
 If you were able to find this blog post, you are capable of being the owner of your own machine.
 
