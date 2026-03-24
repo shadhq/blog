@@ -29,7 +29,7 @@ A User Interface is not a shiny object designed to attract you, nor is it a cosm
 
 Because these systems are designed for beginners, you are forced to use training wheels even after you stop needing them. This serves as a backward justification to make the training wheel the primary way of interacting with the system.
 
-Notice that interfaces are always redundant. Anything you can do with a button, you can do without one. As a thought experiment: imagine a system directly connected to your brain; there would be no interface at all. This proves a fundamental truth: interfaces are a middle-man, and **the best interface is the one you stop noticing.**.
+Notice that interfaces are always redundant. Anything you can do with a button, you can do without one. As a thought experiment: imagine a system directly connected to your brain; there would be no interface at all. This proves a fundamental truth: interfaces are a middle-man, and **the best interface is the one you stop noticing**.
 
 We are often led to believe that a Graphical User Interface (GUI) is naturally superior to the terminal. The command line is framed as outdated or overly complex. Even on systems like macOS, which are built on Unix, the default terminal experience is hidden and under-emphasized. The focus is placed on polished, controlled interfaces. In reality, the terminal exposes capabilities directly. A GUI presents a curated subset of those capabilities, designed for accessibility rather than completeness.
 
