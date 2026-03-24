@@ -16,9 +16,11 @@ If you were able to find this blog post, you are capable of being the owner of y
 #### 1. The Illusion of Progress
 The belief that a mainstream OS will eventually meet your ideal is a myth. Updates do not move you closer to your goals; they move you sideways toward a **perfect average**. This is a system designed to be usable for everyone but optimized for no one.
 
-Developers know this. They keep you in a cycle of constant re-learning by pushing radical changes, like the Windows 8 Metro UI. It is the same principle used by competitive video game developers: change the map every few updates to keep players engaged. You spend your life adapting to these changes under the illusion of progress, rather than actually building your own system.
+Systems evolve for many reasons: new users, new markets, new ideas.
+But those changes are not aligned with your workflow.
+You keep adapting to the system, instead of building your own system.
 
-Progress based on someone else's work is not real progress. It cannot exist without ownership.
+Progress based on someone else’s system is limited. You can only move within the boundaries they define.
 
 Real freedom comes from building on foundations you own. Open Source software is the bedrock of this. Arch is a rolling release distribution, meaning there is no "Version 12" coming to overwrite your life. There is only one Arch: **your Arch**.
 
@@ -29,7 +31,7 @@ Because these systems are designed for beginners, you are forced to use training
 
 Notice that interfaces are always redundant. Anything you can do with a button, you can do without one. As a thought experiment: imagine a system directly connected to your brain; there would be no interface at all. This proves a fundamental truth: interfaces are a middle-man, and **the best interface is no interface**.
 
-We are indoctrinated to believe that a Graphical User Interface (GUI) is naturally superior to a terminal. We are told the command line is a relic of the past. Even macOS, a Unix system, intentionally keeps its default terminal experience ugly and unusable. They push the narrative that "real" work only happens inside their restricted, polished interface. In reality, the terminal is the true interface; a GUI is just a limited translation layer for what the terminal can already do.
+We are often led to believe that a Graphical User Interface (GUI) is naturally superior to the terminal. The command line is framed as outdated or overly complex. Even on systems like macOS, which are built on Unix, the default terminal experience is hidden and under-emphasized. The focus is placed on polished, controlled interfaces. In reality, the terminal exposes capabilities directly. A GUI presents a curated subset of those capabilities, designed for accessibility rather than completeness.
 
 This is not to say that graphical applications don't have their place. You still need a GUI to browse the web, edit photos, or play video games.
 
@@ -105,6 +107,8 @@ The most common reason people stay with Windows or macOS is a cognitive trap: th
 But notice the pattern: Every few years, Microsoft or Apple changes the UI, moves the menus, and forces you to relearn their system all over again. You are trapped in a cycle of perpetual re-learning for an interface you do not own.
 
 Why not use that same paradox to your advantage? Spend that effort to learn Arch once. Because Arch is a rolling release and uses a transparent, text-based configuration, the logic you learn today will still be valid ten years from now. Instead of wasting your "sunken cost" on a corporate treadmill, invest it in a foundation you will never have to rebuild.
+
+> I didn’t stop outsourcing understanding. I stopped outsourcing the foundations.
 
 ### Conclusion
 
