@@ -4,20 +4,59 @@ import '../styles/global.css';
 interface Props {
 	title: string;
 	description?: string;
+	image?: string;
+	articleDate?: string;
 }
 
-const { title, description = "I spend more time configuring my computer than using it." } = Astro.props;
+const { 
+	title, 
+	description = "I spend more time configuring my computer than using it.",
+	image = "/favicon/favicon.svg", // Default image
+	articleDate 
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteName = "shadhq";
+const fullTitle = `${title} | ${siteName}`;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/x-icon" href="/favicon/favicon.ico" />
+		<link rel="icon" type="image/png" href="/favicon/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="/favicon/favicon.svg" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+		<link rel="manifest" href="/favicon/site.webmanifest" />
 		<meta name="generator" content={Astro.generator} />
-		<title>{title} | shadhq</title>
+
+		<!-- Primary Meta Tags -->
+		<title>{fullTitle}</title>
+		<meta name="title" content={fullTitle} />
+		<meta name="description" content={description} />
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalURL} />
+
+		<!-- Verification Tags (Add yours here) -->
+		<!-- <meta name="google-site-verification" content="YOUR_CODE_HERE" /> -->
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={articleDate ? "article" : "website"} />
+		<meta property="og:url" content={canonicalURL} />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={new URL(image, Astro.url)} />
+		{articleDate && <meta property="article:published_time" content={articleDate} />}
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={canonicalURL} />
+		<meta property="twitter:title" content={fullTitle} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+
 		<script defer data-domain="blog.shadhq.com" src="https://plausible.io/js/script.js"></script>
 	</head>
 	<body class="bg-transparent text-tokyo-fg font-mono overflow-x-hidden transition-colors duration-500">

@@ -15,7 +15,37 @@ const { post } = Astro.props;
 const { Content } = await render(post);
 ---
 
-<Layout title={post.data.title} description={post.data.description}>
+<Layout 
+    title={post.data.title} 
+    description={post.data.description}
+    articleDate={post.data.pubDate.toISOString()}
+>
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.data.title,
+        "description": post.data.description,
+        "datePublished": post.data.pubDate.toISOString(),
+        "author": {
+            "@type": "Person",
+            "name": "Younes El Alami",
+            "url": "https://blog.shadhq.com"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "shadhq",
+          "logo": {
+            "@type": "ImageObject",
+            "url": new URL("/favicon/favicon.svg", Astro.site)
+          }
+        },
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": new URL(post.id, Astro.site)
+        }
+    })}>
+    </script>
     <div
         id="reading-progress"
         class="fixed top-0 left-0 h-0.5 md:h-1 bg-tokyo-cyan z-50 transition-all duration-150"
