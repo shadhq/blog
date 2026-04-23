@@ -1,7 +1,9 @@
 ---
 title: "The Arch Way"
 description: "What I've learned after years of following the Arch Way philosophy"
-pubDate: 2026-03-23
+pubDate: 2026-04-23
+updatedDate: 2026-04-23
+image: "/og-arch-way.jpg"
 tags: ["arch"]
 ---
 

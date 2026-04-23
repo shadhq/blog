@@ -11,7 +11,7 @@ interface Props {
 const { 
 	title, 
 	description = "I spend more time configuring my computer than using it.",
-	image = "/favicon/favicon.svg", // Default image
+	image = "/og-image.jpg", // Default OG image
 	articleDate 
 } = Astro.props;
 
@@ -39,8 +39,8 @@ const fullTitle = `${title} | ${siteName}`;
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURL} />
 
-		<!-- Verification Tags (Add yours here) -->
-		<!-- <meta name="google-site-verification" content="YOUR_CODE_HERE" /> -->
+		<!-- Verification Tags -->
+		<meta name="google-site-verification" content="mBOlrnkmkuBxLB4emz3P39rRv4tPD69ulMabTnjVuOE" />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={articleDate ? "article" : "website"} />
@@ -57,7 +57,36 @@ const fullTitle = `${title} | ${siteName}`;
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL(image, Astro.url)} />
 
+		<!-- Plausible Analytics -->
 		<script defer data-domain="blog.shadhq.com" src="https://plausible.io/js/script.js"></script>
+
+		<!-- Google tag (gtag.js) GA4 Placeholder -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-RECF5SHE5Q"></script>
+		<script is:inline>
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-RECF5SHE5Q');
+		</script>
+
+		<!-- Structured Data (JSON-LD) -->
+		<script type="application/ld+json" set:html={JSON.stringify({
+			"@context": "https://schema.org",
+			"@type": articleDate ? "BlogPosting" : "WebSite",
+			"url": canonicalURL.toString(),
+			"name": fullTitle,
+			"headline": fullTitle,
+			"description": description,
+			"image": new URL(image, Astro.url).toString(),
+			...(articleDate ? {
+				"datePublished": articleDate,
+				"author": {
+					"@type": "Person",
+					"name": "shadhq"
+				}
+			} : {})
+		})} />
 	</head>
 	<body class="bg-transparent text-tokyo-fg font-mono overflow-x-hidden transition-colors duration-500">
 		<canvas id="canvas-starfield" class="fixed inset-0 w-full h-full z-0 bg-tokyo-bg" style="pointer-events: none;"></canvas>
