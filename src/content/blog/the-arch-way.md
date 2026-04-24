@@ -4,7 +4,7 @@ description: "What I've learned after years of following the Arch Way philosophy
 pubDate: 2026-04-23
 updatedDate: 2026-04-23
 image: "/og-arch-way.jpg"
-tags: ["arch"]
+tags: ["linux"]
 ---
 
 ### Reclaiming the Machine
