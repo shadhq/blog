@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import resumeData from '../../public/resume.json';
 
-const { basics, work, education, certificates } = resumeData as any;
+const { basics, work, education, certificates, skills } = resumeData as any;
 
 // Merge arrays into a timeline
 const timeline = [
@@ -11,103 +11,143 @@ const timeline = [
 	...(certificates || []).map((item: any) => ({ ...item, type: 'certificate', date: new Date(item.date) }))
 ].sort((a: any, b: any) => b.date.getTime() - a.date.getTime());
 
-// Define specific tech stack icons mapped to Simple Icons CDN
+// Helper to format date ranges
+function formatDateRange(startDate: string, endDate?: string) {
+	const start = new Date(startDate);
+	const startStr = start.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+	if (!endDate) return `${startStr} — Present`;
+	const end = new Date(endDate);
+	const endStr = end.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+	return `${startStr} — ${endStr}`;
+}
+
+// Define specific tech stack icons mapped to CDN
 const techStack = [
 	{ name: "TypeScript", icon: "https://cdn.simpleicons.org/typescript/3178C6" },
 	{ name: "JavaScript", icon: "https://cdn.simpleicons.org/javascript/F7DF1E" },
-	{ name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes/326CE5" },
+	{ name: "Java", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
 	{ name: "Python", icon: "https://cdn.simpleicons.org/python/3776AB" },
 	{ name: "React", icon: "https://cdn.simpleicons.org/react/61DAFB" },
 	{ name: "Node.js", icon: "https://cdn.simpleicons.org/nodedotjs/5FA04E" },
 	{ name: "Spring Boot", icon: "https://cdn.simpleicons.org/springboot/6DB33F" },
-	{ name: "AWS", icon: "https://cdn.simpleicons.org/amazonaws/FF9900" },
+	{ name: "Next.js", icon: "https://cdn.simpleicons.org/nextdotjs/white" },
+	{ name: "AWS", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" },
 	{ name: "Terraform", icon: "https://cdn.simpleicons.org/terraform/844FBA" },
 	{ name: "Docker", icon: "https://cdn.simpleicons.org/docker/2496ED" },
+	{ name: "Kubernetes", icon: "https://cdn.simpleicons.org/kubernetes/326CE5" },
 	{ name: "PostgreSQL", icon: "https://cdn.simpleicons.org/postgresql/4169E1" },
 	{ name: "MongoDB", icon: "https://cdn.simpleicons.org/mongodb/47A248" },
 	{ name: "Elasticsearch", icon: "https://cdn.simpleicons.org/elasticsearch/005571" },
 	{ name: "Kafka", icon: "https://cdn.simpleicons.org/apachekafka/white" },
 	{ name: "Linux", icon: "https://cdn.simpleicons.org/linux/white" },
+	{ name: "Helm", icon: "https://cdn.simpleicons.org/helm/0F1689" },
 ];
 
 const timelineTheme = {
 	work: {
-		border: 'border-tokyo-magenta',
-		text: 'text-tokyo-magenta',
-		hoverText: 'group-hover:text-tokyo-magenta',
-		bgBadge: 'bg-tokyo-magenta/10',
-		shadow: 'shadow-[0_0_10px_rgba(247,118,142,0.5)]',
-		cardHoverBorder: 'hover:border-tokyo-magenta',
-		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(247,118,142,0.1)]',
+		dotColor: 'bg-tokyo-cyan',
+		dotGlow: 'shadow-[0_0_8px_rgba(125,207,255,0.6)]',
+		yearText: 'text-tokyo-cyan',
+		yearBg: 'bg-tokyo-cyan/10',
+		yearBorder: 'border-tokyo-cyan/40',
+		badgeBg: 'bg-tokyo-blue/10',
+		badgeText: 'text-tokyo-blue',
+		badgeBorder: 'border-tokyo-blue/30',
+		cardHoverBorder: 'hover:border-tokyo-blue/50',
+		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(122,162,247,0.08)]',
+		hoverText: 'group-hover:text-tokyo-blue',
 		label: 'Work'
 	},
 	education: {
-		border: 'border-tokyo-blue',
-		text: 'text-tokyo-blue',
-		hoverText: 'group-hover:text-tokyo-blue',
-		bgBadge: 'bg-tokyo-blue/10',
-		shadow: 'shadow-[0_0_10px_rgba(122,162,247,0.5)]',
-		cardHoverBorder: 'hover:border-tokyo-blue',
-		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(122,162,247,0.1)]',
+		dotColor: 'bg-tokyo-green',
+		dotGlow: 'shadow-[0_0_8px_rgba(158,206,106,0.6)]',
+		yearText: 'text-tokyo-green',
+		yearBg: 'bg-tokyo-green/10',
+		yearBorder: 'border-tokyo-green/40',
+		badgeBg: 'bg-tokyo-green/10',
+		badgeText: 'text-tokyo-green',
+		badgeBorder: 'border-tokyo-green/30',
+		cardHoverBorder: 'hover:border-tokyo-green/50',
+		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(158,206,106,0.08)]',
+		hoverText: 'group-hover:text-tokyo-green',
 		label: 'Education'
 	},
 	certificate: {
-		border: 'border-tokyo-green',
-		text: 'text-tokyo-green',
-		hoverText: 'group-hover:text-tokyo-green',
-		bgBadge: 'bg-tokyo-green/10',
-		shadow: 'shadow-[0_0_10px_rgba(158,206,106,0.5)]',
-		cardHoverBorder: 'hover:border-tokyo-green',
-		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(158,206,106,0.1)]',
+		dotColor: 'bg-tokyo-orange',
+		dotGlow: 'shadow-[0_0_8px_rgba(255,158,100,0.6)]',
+		yearText: 'text-tokyo-orange',
+		yearBg: 'bg-tokyo-orange/10',
+		yearBorder: 'border-tokyo-orange/40',
+		badgeBg: 'bg-tokyo-orange/10',
+		badgeText: 'text-tokyo-orange',
+		badgeBorder: 'border-tokyo-orange/30',
+		cardHoverBorder: 'hover:border-tokyo-orange/50',
+		cardHoverShadow: 'hover:shadow-[0_0_20px_rgba(255,158,100,0.08)]',
+		hoverText: 'group-hover:text-tokyo-orange',
 		label: 'Certificate'
 	}
 };
 ---
 
 <Layout title="Developer Profile | Younes El Alami">
-	<article class="max-w-3xl mx-auto px-4 md:px-0 py-10 md:py-20 animate-[fade-in_0.8s_ease-out]">
+	<article class="max-w-3xl mx-auto px-4 md:px-0 py-10 md:py-20 animate-[fade-in_0.8s_ease-out] relative">
 		
+		<!-- Navigation Breadcrumb -->
+		<div class="mb-8 text-[10px] md:text-xs text-tokyo-comment uppercase font-bold flex space-x-2 items-center break-words">
+			<a href="/" class="inline-flex items-center px-3 py-1 bg-tokyo-bg-alt/80 backdrop-blur-md border border-tokyo-comment/30 rounded-full text-tokyo-comment hover:text-tokyo-cyan hover:border-tokyo-cyan/50 hover:shadow-[0_0_10px_rgba(125,207,255,0.2)] transition-all duration-300 group shrink-0">
+				<svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1.5 group-hover:-translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
+				cd ~/
+			</a>
+			<span class="shrink-0">&gt;</span>
+			<span class="text-tokyo-green font-mono">cat readme.md</span>
+		</div>
+
 		<!-- Hero Section -->
-		<header class="mb-16 border-b border-tokyo-comment/20 pb-10">
-			<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
-				<div>
-					<h1 class="text-4xl md:text-5xl font-bold lights-text pb-2 mb-2">
-						{basics.name}
-					</h1>
-					<h2 class="text-xl md:text-2xl text-tokyo-cyan font-mono mb-4 flex items-center">
-						<svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
-						{basics.label}
-					</h2>
-					<div class="flex items-center space-x-4 text-tokyo-comment font-mono text-sm">
-						<span class="flex items-center">
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-tokyo-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-							{basics.location.city}, {basics.location.countryCode}
-						</span>
-						<a href={`mailto:${basics.email}`} class="flex items-center hover:text-tokyo-yellow transition-colors">
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-tokyo-yellow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
-							{basics.email}
-						</a>
-						<a href={basics.profiles[0].url} target="_blank" rel="noopener noreferrer" class="flex items-center hover:text-white transition-colors">
-							<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-							GitHub
-						</a>
-					</div>
+		<header class="mb-16 pb-10">
+			<!-- Name & Title Block -->
+			<div class="mb-8">
+				<h1 class="text-4xl md:text-5xl font-bold lights-text pb-2 mb-3">
+					{basics.name}
+				</h1>
+				<h2 class="text-xl md:text-2xl text-tokyo-cyan font-mono flex items-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 16 4-4-4-4"></path><path d="m6 8-4 4 4 4"></path><path d="m14.5 4-5 16"></path></svg>
+					{basics.label}
+				</h2>
+			</div>
+
+			<!-- Contact Row + CTA -->
+			<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+				<div class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm font-mono">
+					<span class="flex items-center text-tokyo-fg/90">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-tokyo-orange" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+						{basics.location.city}, {basics.location.countryCode}
+					</span>
+					<a href={`mailto:${basics.email}`} class="flex items-center text-tokyo-fg/90 hover:text-tokyo-yellow transition-colors group">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-tokyo-yellow group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>
+						{basics.email}
+					</a>
+					<a href={basics.profiles[0].url} target="_blank" rel="noopener noreferrer" class="flex items-center text-tokyo-fg/90 hover:text-white transition-colors group">
+						<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 text-white group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+						GitHub
+					</a>
 				</div>
 				
-				<!-- Recruiter CTA Component -->
 				<a 
-					href="/younes.el-alami.cv.docx.pdf" 
-					download
-					class="shrink-0 flex items-center justify-center px-6 py-3 bg-tokyo-blue/10 border border-tokyo-blue/50 text-tokyo-blue hover:bg-tokyo-blue hover:text-tokyo-bg-alt rounded-md font-bold transition-all duration-300 shadow-[0_0_15px_rgba(122,162,247,0.15)] hover:shadow-[0_0_25px_rgba(122,162,247,0.4)] group whitespace-nowrap"
+					href="/younes.el-alami.resume.pdf" 
+					download="younes.el-alami.resume.pdf"
+					class="shrink-0 flex items-center justify-center px-6 py-2.5 bg-tokyo-purple text-tokyo-bg rounded-md font-bold text-sm transition-all duration-300 shadow-[0_0_15px_rgba(187,154,247,0.3)] hover:bg-tokyo-cyan hover:shadow-[0_0_25px_rgba(125,207,255,0.5)] group whitespace-nowrap"
 				>
-					<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3 group-hover:-translate-y-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-					Download PDF
+					<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2 group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+					Download CV
 				</a>
 			</div>
-			
-			<p class="mt-8 text-tokyo-fg/90 leading-relaxed text-lg prose-tokyo">
-				{basics.summary}
-			</p>
+
+			<!-- Summary -->
+			<div class="glass-card rounded-lg p-6 border-l-4 border-tokyo-blue">
+				<p class="text-tokyo-fg font-medium leading-relaxed text-[15px]">
+					{basics.summary}
+				</p>
+			</div>
 		</header>
 
 		<!-- Core Architecture Grid -->
@@ -117,18 +157,18 @@ const timelineTheme = {
 				/sys/core/stack
 			</h2>
 			
-			<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-7 gap-4">
+			<div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
 				{techStack.map(tech => (
-					<div class="flex flex-col items-center justify-center p-4 glass-card rounded-lg hover:border-tokyo-purple hover:bg-tokyo-purple/5 transition-all group shadow-sm hover:shadow-[0_0_15px_rgba(187,154,247,0.1)]">
+					<div class="flex flex-col items-center justify-center p-3.5 glass-card rounded-lg hover:border-tokyo-purple/50 hover:bg-tokyo-purple/5 transition-all duration-300 group shadow-sm hover:shadow-[0_0_15px_rgba(187,154,247,0.08)]">
 						<img 
 							src={tech.icon} 
 							alt={tech.name} 
-							width="40"
-							height="40"
-							class="w-10 h-10 group-hover:scale-110 transition-transform duration-300 drop-shadow-md" 
+							width="36"
+							height="36"
+							class="w-9 h-9 group-hover:scale-110 transition-transform duration-300 drop-shadow-md" 
 							loading="lazy"
 						/>
-						<span class="mt-3 text-[11px] font-mono font-bold text-tokyo-cyan group-hover:text-white transition-colors text-center">
+						<span class="mt-2.5 text-[10px] font-mono font-bold text-tokyo-comment group-hover:text-tokyo-purple transition-colors text-center leading-tight">
 							{tech.name}
 						</span>
 					</div>
@@ -138,44 +178,54 @@ const timelineTheme = {
 
 		<!-- Experience Timeline -->
 		<section>
-			<h2 class="text-2xl md:text-3xl font-bold mb-8 text-tokyo-magenta border-b border-tokyo-magenta/30 pb-2 flex items-center">
+			<h2 class="text-2xl md:text-3xl font-bold mb-8 text-tokyo-cyan border-b border-tokyo-cyan/30 pb-2 flex items-center">
 				<svg xmlns="http://www.w3.org/2000/svg" class="mr-3 w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"></path><circle cx="12" cy="12" r="10"></circle></svg>
 				/var/log/timeline
 			</h2>
 			
-			<div class="space-y-8 relative before:content-[''] before:absolute before:inset-0 before:ml-6 md:before:ml-8 before:-translate-x-px before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-tokyo-comment/30 before:to-transparent">
+			<div class="space-y-6 relative before:content-[''] before:absolute before:inset-0 before:ml-[7px] md:before:ml-[9px] before:h-full before:w-px before:bg-gradient-to-b before:from-transparent before:via-tokyo-comment/20 before:to-transparent">
 				{timeline.map((item: any) => {
-					// Dynamic theme mapping per item type
 					const type = item.type as "work" | "education" | "certificate";
 					const theme = timelineTheme[type];
-					const year = item.date.getFullYear();
 					
 					return (
-						<div class="relative flex items-start group is-active">
-							<!-- Timeline Badge Box (Year) instead of a simple dot -->
-							<div class={`flex items-center text-[10px] font-bold justify-center w-12 py-1.5 rounded border ${theme.border} bg-tokyo-bg shrink-0 absolute left-0 md:left-2 top-6 ${theme.shadow} group-hover:scale-110 transition-transform duration-300 z-10 ${theme.text}`}>
-								{year}
-							</div>
+						<div class="relative flex items-start group pl-8 md:pl-10">
+							{/* Timeline dot */}
+							<div class={`absolute left-0 md:left-0 top-7 w-[15px] h-[15px] rounded-full ${theme.dotColor} ${theme.dotGlow} border-2 border-tokyo-bg z-10 group-hover:scale-125 transition-transform duration-300`}></div>
 							
-							<!-- Content Box -->
-							<div class={`ml-16 md:ml-20 w-[calc(100%-4rem)] md:w-[calc(100%-5rem)] glass-card p-5 md:p-6 rounded-lg ${theme.cardHoverBorder} ${theme.cardHoverShadow} transition-all duration-300`}>
-								<div class="flex flex-col mb-3">
-									<h3 class={`text-xl md:text-2xl font-bold text-tokyo-fg ${theme.hoverText} transition-colors leading-tight`}>
+							{/* Content Card */}
+							<div class={`w-full glass-card p-5 md:p-6 rounded-lg ${theme.cardHoverBorder} ${theme.cardHoverShadow} transition-all duration-300`}>
+								{/* Header row: title + date range */}
+								<div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-1 mb-2">
+									<h3 class={`text-lg md:text-xl font-bold text-tokyo-fg ${theme.hoverText} transition-colors leading-tight`}>
 										{type === 'work' ? item.position : type === 'education' ? item.area : item.name}
 									</h3>
-									<span class="text-tokyo-cyan font-mono text-sm mt-2">@ {type === 'work' ? item.name : type === 'education' ? item.institution : item.issuer}</span>
+									<span class={`text-[11px] font-mono ${theme.yearText} ${theme.yearBg} ${theme.yearBorder} border px-2 py-0.5 rounded shrink-0 w-fit`}>
+										{type === 'work' 
+											? formatDateRange(item.startDate, item.endDate) 
+											: type === 'education' 
+												? formatDateRange(item.startDate, item.endDate)
+												: new Date(item.date).getFullYear()
+										}
+									</span>
 								</div>
 								
-								<div class="text-[11px] font-mono text-tokyo-comment mb-4 flex flex-wrap items-center gap-2">
-									<span class={`px-2 py-0.5 rounded-sm ${theme.bgBadge} ${theme.text} border border-current opacity-80 uppercase tracking-widest`}>
+								{/* Company/Institution */}
+								<span class="text-tokyo-purple font-mono text-sm block mb-3">
+									@ {type === 'work' ? item.name : type === 'education' ? item.institution : item.issuer}
+								</span>
+								
+								{/* Meta row: badge + location */}
+								<div class="text-[11px] font-mono text-tokyo-comment mb-3 flex flex-wrap items-center gap-2">
+									<span class={`px-2 py-0.5 rounded ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} border uppercase tracking-wider`}>
 										{theme.label}
 									</span>
-									{type === 'work' && item.location && <span>• {item.location}</span>}
-									{type === 'education' && item.studyType && <span>• {item.studyType}</span>}
+									{type === 'work' && item.location && <span class="text-tokyo-comment/70">{item.location}</span>}
+									{type === 'education' && item.studyType && <span class="text-tokyo-comment/70">{item.studyType}</span>}
 								</div>
 								
 								{item.summary && (
-									<p class="text-sm text-tokyo-fg/70 leading-relaxed mb-4">
+									<p class="text-sm text-tokyo-fg/80 leading-relaxed font-medium">
 										{item.summary}
 									</p>
 								)}
@@ -184,21 +234,17 @@ const timelineTheme = {
 					);
 				})}
 				
-				<!-- Start block -->
-				<div class="relative flex justify-start pt-8 pb-4 z-10 space-x-0">
-					<div class="ml-0 md:ml-1 bg-tokyo-bg-alt border border-tokyo-comment/30 px-6 py-2 rounded-full text-tokyo-comment text-[10px] font-mono tracking-widest uppercase">
+				{/* Start block */}
+				<div class="relative flex justify-start pt-6 pb-4 z-10 pl-8 md:pl-10">
+					<div class="bg-tokyo-bg-alt border border-tokyo-comment/20 px-5 py-1.5 rounded-full text-tokyo-comment text-[10px] font-mono tracking-widest uppercase">
 						system boot
 					</div>
 				</div>
 			</div>
 		</section>
 		
-		<div class="mt-20 text-center w-full">
-			<a href="/" class="inline-flex items-center text-tokyo-comment hover:text-white transition-colors font-mono tracking-widest uppercase text-sm">
-				<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"></path></svg>
-				cd ~
-			</a>
-		</div>
+		<!-- Bottom padding to replace the removed navigation -->
+		<div class="mt-10"></div>
 
 	</article>
 </Layout>

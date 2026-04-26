@@ -5,9 +5,9 @@
     "label": "Senior Software Engineer",
     "image": "",
     "email": "younes.el.alami@gmail.com",
-    "phone": "06 54 65 45 86",
+    "phone": "+212 6 54 65 45 86",
     "url": "https://blog.shadhq.com",
-    "summary": "Senior Fullstack Engineer specializing in Java/Spring Boot and React ecosystems with 10+ years building scalable web applications. Expert in microservices architecture, modern frontend development, and cloud-native solutions. Passionate about delivering high-quality, user-centric products from conception to deployment.",
+    "summary": "Senior Software Engineer with 15+ years of experience across distributed systems, cloud infrastructure, and platform engineering. Proven track record building developer tooling and CI/CD platforms at scale (Zalando: 2,000+ engineers, 5,000+ daily builds on Kubernetes). Deep expertise in AWS, Terraform, Docker, Kubernetes, and observability tooling, combined with strong full-stack development skills (React/Node.js/Java/Spring Boot). Currently pursuing AWS and Kubernetes certifications to formalize platform engineering expertise while maintaining hands-on development capabilities.",
     "location": {
       "city": "Casablanca",
       "countryCode": "MA"
@@ -23,140 +23,138 @@
   "work": [
     {
       "name": "bruce.work",
-      "position": "Senior Fullstack Developer",
+      "position": "Senior Software Engineer",
       "location": "Remote / Hybrid",
       "startDate": "2026-03-01",
-      "summary": "Fullstack development of a digital recruitment solution and temporary employment platform.",
+      "summary": "Full-stack engineer on a recruitment and temporary employment platform, working across features, backend services, and cloud infrastructure.",
       "highlights": [
-        "Developing and maintaining the core recruitment platform and mobile applications using React Native, enabling job seekers and companies to seamlessly manage the end-to-end employment lifecycle.",
-        "Implementing backend microservices handling algorithms for job matching, automated contract generation, and timesheet management using Node.js and MongoDB.",
-        "Building reusable frontend components with React and Material-UI for the 'Bruce Entreprise' recruiter dashboard, providing a Kanban-style interface for applicant tracking.",
-        "Managing cloud infrastructure and deploying scalable services on AWS, ensuring high availability for the platform's intensive administrative management systems."
+        "Joined engineering team to leverage platform engineering experience from Zalando and infrastructure automation expertise from freelance consulting.",
+        "Contributing to React Native mobile app and Node.js microservices architecture for recruitment and contract management platform.",
+        "Applying DevOps best practices to AWS infrastructure: refining Terraform modules, improving Docker build efficiency, and strengthening CI/CD pipelines."
       ]
     },
     {
       "name": "Freelance Consulting",
-      "position": "Software Fullstack Engineer",
+      "position": "Senior Software Engineer",
       "location": "Remote",
       "startDate": "2024-01-01",
       "endDate": "2026-03-01",
-      "summary": "Delivering end-to-end software solutions for clients as an independent consultant, from requirements gathering through deployment and maintenance.",
+      "summary": "Independent consultant building full-stack applications with a focus on cloud architecture and infrastructure automation.",
       "highlights": [
-        "Enterprise Mentoring Platform (mentoringbycgem.com): Implemented JWT-based authentication with RBAC. Setup devops and CI/CD on portainer.io and github. Built responsive React dashboard with TS, real-time notifications, chat, calendar. Architected Node.js/Express backend.",
-        "SaaS PDF Platform: Architected serverless microservices backend using Java/Spring Boot and Next.js frontend. Designed scalable REST APIs handling concurrent file operations. Implemented IAC using Terraform managing S3, API Gateway, Lambda, CloudWatch, and DynamoDB. Integrated Stripe and OAuth2."
+        "SaaS PDF Platform: Architected serverless backend on AWS with modular Terraform infrastructure managing 8+ Lambda functions, API Gateway routes, S3 buckets (with lifecycle policies), DynamoDB tables, and CloudWatch alarms across dev/staging/prod environments. Implemented remote state in S3 with DynamoDB locking, reusable modules for common patterns, and automated deployments via GitHub Actions with plan/apply workflows.",
+        "Mentoring Platform (mentoringbycgem.com): Built with Node.js/Express and React/TypeScript. Implemented JWT authentication with RBAC, real-time WebSocket notifications, calendar integration via OAuth2, and deployed using Docker Compose with Portainer on DigitalOcean. Automated CI/CD pipeline using GitHub Actions for testing, building Docker images, and zero-downtime deployments.",
+        "Established infrastructure-as-code best practices across all client projects: Terraform workspaces for environment isolation, tagged resource organization, cost monitoring via AWS Cost Explorer, and runbook documentation for common operational tasks."
       ]
     },
     {
       "name": "RWS",
-      "position": "Software Engineer",
+      "position": "Senior Software Engineer",
       "location": "Amsterdam",
       "startDate": "2022-12-01",
       "endDate": "2024-01-01",
-      "summary": "Contributed to Tridion Docs, a market-leading enterprise Component Content Management System serving Fortune 500 clients.",
+      "summary": "Worked on Tridion Docs, an enterprise CMS used by Fortune 500 companies. Led backend modernization and containerization.",
       "highlights": [
-        "Backend Modernization: Migrated 15+ legacy services to Spring Boot microservices, reducing deployment time by 40%.",
-        "Designed RESTful APIs with comprehensive Swagger documentation.",
-        "Optimized PostgreSQL queries reducing response times from 2s to 300ms.",
-        "Implemented event-driven architecture using Kafka for async processing workflows.",
-        "Frontend Modernization: Led migration from legacy jQuery/JSP to React with TS, Redux, and React Query.",
-        "Established Yarn Workspaces and Turborepo monorepo reducing build times."
+        "Led containerization initiative: migrated 15+ legacy services to Spring Boot microservices running in Docker, establishing CI/CD pipelines that reduced deployment time by 40%.",
+        "Designed RESTful API standards with OpenAPI specs and set up API gateway routing with automated service discovery, enabling teams to deploy services independently.",
+        "Implemented event-driven architecture with Apache Kafka: designed topic schemas, configured consumer groups with proper offset management, and established dead-letter queue patterns for reliability.",
+        "Optimized PostgreSQL performance through query analysis, index tuning, and connection pooling, reducing P95 response times from 2s to 300ms.",
+        "Architected frontend modernization from jQuery/JSP monolith to React with TypeScript and Redux, organized as Turborepo monorepo with shared component library and build optimization."
       ]
     },
     {
       "name": "Zalando SE",
-      "position": "Software Engineer",
+      "position": "Senior Software Engineer",
       "location": "Berlin",
       "startDate": "2021-01-01",
       "endDate": "2022-12-01",
-      "summary": "Platform Engineering team responsible for developer experience, deployment automation, and internal tooling consolidation for 2,000+ engineers.",
+      "summary": "Part of the Platform Engineering team. We built internal developer tooling, CI/CD infrastructure, and deployment automation for 2,000+ engineers running hundreds of microservices on Kubernetes.",
       "highlights": [
-        "Architected enterprise-grade CI/CD platform processing 5,000+ builds daily.",
-        "Built backend microservices handling build orchestration and deployment automation.",
-        "Implemented webhook integrations with GitHub, Slack, and PagerDuty.",
-        "Built React/Redux frontend application for real-time build visualization.",
-        "Migrated React/TS tooling to a unified developer portal using Backstage plugin architecture.",
-        "Configured Webpack module federation enabling micro-frontend architecture."
+        "Built and ran the CI/CD platform that handled 5,000+ daily builds, with Docker-based pipelines running on Kubernetes clusters on AWS.",
+        "Developed microservices for build orchestration and deployment automation across a multi-cluster Kubernetes setup.",
+        "Wrote Dockerfiles, Kubernetes manifests, and Helm charts for platform services. Managed pod configs, resource limits, and health checks.",
+        "Integrated observability tooling (New Relic, LightStep, Scalyr) for distributed tracing and log aggregation, with alerting through PagerDuty and Slack.",
+        "Contributed to the internal developer portal built on Backstage, adding deployment tracking and service catalog features.",
+        "Built micro-frontend architecture with Webpack Module Federation so teams could deploy UI components independently."
       ]
     },
     {
       "name": "Danske Bank",
       "position": "Senior Frontend Developer",
-      "location": "Ampang Park",
+      "location": "Kuala Lumpur",
       "startDate": "2019-06-01",
       "endDate": "2020-03-01",
-      "summary": "Focused on improving the user experience of the main bank's website and mobile app.",
+      "summary": "Worked on the bank's website and mobile app for a major Nordic financial institution.",
       "highlights": [
-        "Creating low-level design documents for user requirements.",
-        "Creating MicroServices using Spring Boot and consuming them in React-Native mobile application.",
-        "Maintaining and implementing new features with React (ES6, Redux, Storybook, GraphQL, Webpack)."
+        "Built Spring Boot microservices consumed by a React Native mobile app.",
+        "Delivered features with React, Redux, Storybook, GraphQL, and Webpack under banking compliance constraints."
       ]
     },
     {
       "name": "BAE Systems Applied Intelligence",
       "position": "Senior Software Engineer",
-      "location": "Ampang Park",
+      "location": "Kuala Lumpur",
       "startDate": "2017-10-01",
       "endDate": "2019-02-01",
-      "summary": "Developed defense software for big data search, investigation, and monitoring.",
+      "summary": "Built software for big data search and investigation in the defense sector.",
       "highlights": [
-        "Developing MicroServices Restful APIs with SpringBoot.",
-        "Integrating the MicroServices into a client React application using ES6, Redux, Storybook, GraphQL, Webpack.",
-        "Optimizing and Upgrading Elasticsearch databases, search queries, and schema.",
-        "Migrating frontend projects from Marionette to React."
+        "Developed Spring Boot microservices for large-scale data search and investigation systems.",
+        "Managed Elasticsearch clusters: index design, shard allocation, replica tuning, and query optimization for high-volume ingestion.",
+        "Integrated services into a React frontend with Redux and GraphQL.",
+        "Migrated the frontend from Marionette to React with modern build tooling."
       ]
     },
     {
       "name": "iPrice Group Sdn Bhd",
       "url": "https://iprice.my",
       "position": "Software Engineer",
-      "location": "MidValley",
+      "location": "Kuala Lumpur",
       "startDate": "2015-02-01",
       "endDate": "2017-09-01",
-      "summary": "Worked on a meta e-commerce site, CMS tools, and integrated partner site pages.",
+      "summary": "Worked on a meta e-commerce platform serving millions of users across Southeast Asia.",
       "highlights": [
-        "Architecting and implementing a products categorization tool (Angular2/Symphony/Spring Boot).",
-        "Developing and maintaining a performant e-commerce website.",
-        "Enhancing page load speed and SEO using AMP, Spring Boot, Elasticsearch."
+        "Built a product categorization tool with Angular 2, Symfony, and Spring Boot, processing millions of listings.",
+        "Optimized page load speed and SEO with AMP, Spring Boot, and Elasticsearch."
       ]
     },
     {
       "name": "Tractive Sdn Bhd",
       "url": "https://apptractive.com.my",
-      "position": "Co-Founder, CTO",
-      "location": "Damansara",
+      "position": "Co-Founder & CTO",
+      "location": "Kuala Lumpur",
       "startDate": "2012-09-01",
       "endDate": "2014-09-01",
-      "summary": "Led the technology department, managed IT resources, and worked on human-computer interaction technologies.",
+      "summary": "Co-founded a tech company. Led the engineering team and managed infrastructure.",
       "highlights": [
-        "Developing innovative solutions with C#/WPF and Vanilla JS."
+        "Ran the tech department: infrastructure, dev workflows, and team management.",
+        "Built interactive solutions with C#/WPF and JavaScript."
       ]
     },
     {
       "name": "SmartSurface Sdn Bhd",
       "url": "https://smart-surface.com",
       "position": "Junior Software Engineer",
-      "location": "Cyberjaya",
+      "location": "Kuala Lumpur",
       "startDate": "2011-02-01",
       "endDate": "2012-08-01",
-      "summary": "Participated in the full software development lifecycle to meet client needs.",
+      "summary": "First engineering role. Full development lifecycle on client projects.",
       "highlights": [
-        "Working with C#/WPF."
+        "Built desktop applications with C#/WPF, from requirements through deployment."
       ]
     }
   ],
   "education": [
     {
-      "institution": "Staffordshire university at Asia Pacific University (APU)",
+      "institution": "Staffordshire University at Asia Pacific University (APU)",
       "url": "",
       "area": "Computing (Software Engineering)",
-      "studyType": "BSC (HONS)",
+      "studyType": "BSc (Hons)",
       "startDate": "2009-01-01",
       "endDate": "2012-01-01"
     },
     {
       "institution": "College de Sherbrooke",
       "location": "Casablanca",
-      "area": "Analyst programmer",
+      "area": "Analyst Programmer",
       "studyType": "Degree",
       "startDate": "2007-01-01",
       "endDate": "2009-01-01"
@@ -164,39 +162,109 @@
   ],
   "certificates": [
     {
-      "name": "Certified Ethical Hacker",
+      "name": "Certified Ethical Hacker (CEH)",
       "date": "2011-01-01",
       "issuer": "Asia Pacific University (APU), Technology Park Malaysia"
     }
   ],
   "skills": [
     {
-      "name": "Backend Development",
+      "name": "Cloud & Infrastructure",
+      "level": "Advanced",
       "keywords": [
-        "Java", "Spring", "J2EE", "JSP", "Servlets", "Struts 2.0",
-        "Kafka", "RabbitMQ", "Swagger", "GraphQL", "MicroServices", "REST APIs",
-        "PostgreSQL", "MySQL", "Oracle", "Elasticsearch", "MongoDB", "Firebase", "RethinkDB",
-        "Node.js", "Express", "Serverless", "NestJs",
-        "Laravel", "Symfony",
-        "Python", "Flask", "Django"
+        "AWS",
+        "Terraform",
+        "Infrastructure as Code",
+        "EC2",
+        "ECS",
+        "EKS",
+        "Lambda",
+        "S3",
+        "CloudWatch",
+        "Linux",
+        "Bash"
       ]
     },
     {
-      "name": "Frontend Development",
+      "name": "Containers & Orchestration",
+      "level": "Advanced",
       "keywords": [
-        "HTML", "CSS", "JavaScript", "TypeScript",
-        "React", "React-Native", "Next.js", "Angular",
-        "Redux", "MobX", "RxJS", "React Query",
-        "Material-UI", "Styled-components", "CSS-in-JS",
-        "Puppeteer", "Jest", "Storybook", "SauceLabs"
+        "Kubernetes",
+        "Docker",
+        "Helm",
+        "Pod Autoscaling",
+        "Service Mesh"
       ]
     },
     {
-      "name": "Cloud & DevOps",
+      "name": "CI/CD & GitOps",
+      "level": "Advanced",
       "keywords": [
-        "AWS", "EC2", "Lambda", "S3",
-        "New Relic", "Sentry", "Scalyr", "LightStep",
-        "Terraform", "Portainer", "CI/CD", "Docker"
+        "GitHub Actions",
+        "Jenkins",
+        "GitLab CI",
+        "ArgoCD",
+        "Deployment Automation"
+      ]
+    },
+    {
+      "name": "Observability & Monitoring",
+      "level": "Advanced",
+      "keywords": [
+        "Prometheus",
+        "Grafana",
+        "New Relic",
+        "Distributed Tracing",
+        "PagerDuty",
+        "SLO/SLI"
+      ]
+    },
+    {
+      "name": "Backend & Microservices",
+      "level": "Advanced",
+      "keywords": [
+        "Java",
+        "Spring Boot",
+        "Node.js",
+        "Microservices",
+        "REST API",
+        "GraphQL",
+        "Apache Kafka"
+      ]
+    },
+    {
+      "name": "Databases",
+      "level": "Advanced",
+      "keywords": [
+        "PostgreSQL",
+        "MongoDB",
+        "Elasticsearch",
+        "Redis",
+        "DynamoDB"
+      ]
+    },
+    {
+      "name": "Frontend & Web",
+      "level": "Advanced",
+      "keywords": [
+        "React",
+        "Next.js",
+        "TypeScript",
+        "Redux",
+        "React Native",
+        "Webpack"
+      ]
+    },
+    {
+      "name": "Developer Experience",
+      "level": "Advanced",
+      "keywords": [
+        "Backstage",
+        "Platform Engineering",
+        "OpenAPI",
+        "Monorepo",
+        "Turborepo",
+        "Git"
       ]
     }
   ],
@@ -212,6 +280,17 @@
     {
       "language": "Arabic",
       "fluency": "Proficient"
+    }
+  ],
+  "interests": [
+    {
+      "name": "Platform Engineering"
+    },
+    {
+      "name": "Cloud Infrastructure"
+    },
+    {
+      "name": "Developer Tooling"
     }
   ]
 }

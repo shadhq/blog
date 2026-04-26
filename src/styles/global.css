@@ -64,7 +64,19 @@
   }
 
   .glass-card {
-    @apply bg-tokyo-bg-alt/95 border border-tokyo-comment/30;
+    @apply bg-tokyo-bg-alt/80 backdrop-blur-md border border-tokyo-comment/30 transition-all duration-300;
+  }
+  
+  .glass-card-hover {
+    @apply hover:-translate-y-1 hover:border-tokyo-cyan/50 hover:shadow-[0_8px_30px_rgb(0,0,0,0.12),0_0_20px_rgba(125,207,255,0.15)];
+  }
+
+  .tag-pill {
+    @apply inline-flex items-center text-[10px] md:text-xs px-2.5 py-1 rounded-md bg-tokyo-bg/50 border border-tokyo-comment/40 text-tokyo-purple transition-all duration-300 font-mono tracking-tight;
+  }
+
+  .tag-pill-hover {
+    @apply hover:border-tokyo-purple hover:bg-tokyo-purple/10 hover:-translate-y-0.5 hover:shadow-[0_0_10px_rgba(187,154,247,0.2)];
   }
 }
 
@@ -122,6 +134,10 @@
 @layer components {
   .prose-tokyo {
     @apply text-tokyo-fg/90 leading-[1.8] font-mono text-[15px] md:text-base;
+  }
+
+  .prose-tokyo img {
+    @apply rounded-xl border border-tokyo-comment/20 shadow-[0_10px_40px_rgba(0,0,0,0.5)] my-10;
   }
 
   .prose-tokyo h1, .prose-tokyo h2, .prose-tokyo h3, .prose-tokyo h4 {
@@ -191,7 +207,7 @@
   }
 
   .prose-tokyo pre {
-    @apply bg-tokyo-bg-alt p-4 rounded-lg my-6 overflow-x-auto border border-tokyo-comment/20 text-sm relative selection:bg-tokyo-comment/50;
+    @apply bg-tokyo-bg-alt p-4 rounded-lg my-6 overflow-x-auto border border-tokyo-comment/20 text-sm relative selection:bg-tokyo-comment/50 shadow-lg;
   }
 
   .prose-tokyo code {
