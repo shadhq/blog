@@ -23,7 +23,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Generate Resume PDF
-        run: npx resumed export public/resume.json --output public/younes.el-alami.resume.pdf --theme jsonresume-theme-stackoverflow
+        run: npx resumed export public/resume.json --output public/younes.el-alami.resume.pdf --theme jsonresume-theme-stackoverflow --puppeteer-arg --no-sandbox --puppeteer-arg --disable-setuid-sandbox
       - name: Build with Astro
         run: npm run build
       - name: Create CNAME file
