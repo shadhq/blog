@@ -5,8 +5,5 @@ import mdx from '@astrojs/mdx';
 
 export default defineConfig({
   site: 'https://blog.shadhq.com',
-  vite: {
-    plugins: [tailwindcss()]
-  },
   integrations: [sitemap(), mdx()]
 });
