@@ -21,7 +21,6 @@ const { Content } = await render(post);
     articleDate={post.data.pubDate.toISOString()}
     image={post.data.image}
 >
-    <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
         "@context": "https://schema.org",
         "@type": "BlogPosting",
@@ -31,7 +30,7 @@ const { Content } = await render(post);
         "author": {
             "@type": "Person",
             "name": "Younes El Alami",
-            "url": "https://blog.shadhq.com"
+            "url": "https://blog.shadhq.com/"
         },
         "publisher": {
           "@type": "Organization",
@@ -43,7 +42,7 @@ const { Content } = await render(post);
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": new URL(post.id, Astro.site)
+          "@id": new URL(post.id + '/', Astro.site)
         }
     })}>
     </script>

@@ -311,7 +311,7 @@ posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 						</p>
 						{posts.map((post) => (
 							<a
-								href={`/${post.id}`}
+								href={`/${post.id}/`}
 								data-tags={post.data.tags.join(",")}
 								class="blog-card block w-full glass-card glass-card-hover p-5 md:p-6 rounded-lg group"
 							>

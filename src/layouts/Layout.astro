@@ -15,7 +15,7 @@ const {
 	articleDate 
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const canonicalURL = new URL(Astro.url.pathname.replace(/\/$/, '') + '/', Astro.site);
 const siteName = "shadhq";
 const fullTitle = `${title} | ${siteName}`;
 ---
@@ -35,6 +35,8 @@ const fullTitle = `${title} | ${siteName}`;
 		<title>{fullTitle}</title>
 		<meta name="title" content={fullTitle} />
 		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow" />
+		
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalURL} />
 
@@ -70,22 +72,16 @@ const fullTitle = `${title} | ${siteName}`;
 		</script>
 
 		<!-- Structured Data (JSON-LD) -->
-		<script type="application/ld+json" set:html={JSON.stringify({
-			"@context": "https://schema.org",
-			"@type": articleDate ? "BlogPosting" : "WebSite",
-			"url": canonicalURL.toString(),
-			"name": fullTitle,
-			"headline": fullTitle,
-			"description": description,
-			"image": new URL(image, Astro.url).toString(),
-			...(articleDate ? {
-				"datePublished": articleDate,
-				"author": {
-					"@type": "Person",
-					"name": "shadhq"
-				}
-			} : {})
-		})} />
+		{articleDate ? null : (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "WebSite",
+				"url": canonicalURL.toString(),
+				"name": fullTitle,
+				"description": description,
+				"image": new URL(image, Astro.url).toString()
+			})} />
+		)}
 	</head>
 	<body class="bg-transparent text-tokyo-fg font-mono overflow-x-hidden transition-colors duration-500">
 		<canvas id="canvas-starfield" class="fixed inset-0 w-full h-full z-0 bg-tokyo-bg" style="pointer-events: none;"></canvas>
