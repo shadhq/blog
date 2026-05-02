@@ -13,6 +13,10 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// Calculate reading time
+const words = post.body.split(/\s+/).length;
+const readingTime = Math.ceil(words / 200);
 ---
 
 <Layout 
@@ -20,6 +24,8 @@ const { Content } = await render(post);
     description={post.data.description}
     articleDate={post.data.pubDate.toISOString()}
     image={post.data.image}
+    keywords={post.data.keywords}
+    readingTime={readingTime}
 >
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
         "@context": "https://schema.org",
@@ -37,13 +43,31 @@ const { Content } = await render(post);
           "name": "shadhq",
           "logo": {
             "@type": "ImageObject",
-            "url": new URL("/favicon/favicon.svg", Astro.site)
+            "url": new URL("/favicon/shadhq_logo.png", Astro.site)
           }
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": new URL(post.id + '/', Astro.site)
-        }
+        },
+        "wordCount": words,
+        "timeRequired": `PT${readingTime}M`
+    })}>
+    </script>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [{
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://blog.shadhq.com/"
+        },{
+            "@type": "ListItem",
+            "position": 2,
+            "name": post.data.title,
+            "item": new URL(post.id + '/', Astro.site)
+        }]
     })}>
     </script>
     <div

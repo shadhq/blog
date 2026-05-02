@@ -6,13 +6,17 @@ interface Props {
 	description?: string;
 	image?: string;
 	articleDate?: string;
+	keywords?: string;
+	readingTime?: number;
 }
 
 const { 
 	title, 
 	description = "I spend more time configuring my computer than using it.",
 	image = "/og-image.jpg", // Default OG image
-	articleDate 
+	articleDate,
+	keywords = "linux, arch linux, development, coding, programming",
+	readingTime
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname.replace(/\/$/, '') + '/', Astro.site);
@@ -35,6 +39,7 @@ const fullTitle = `${title} | ${siteName}`;
 		<title>{fullTitle}</title>
 		<meta name="title" content={fullTitle} />
 		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords} />
 		<meta name="robots" content="index, follow" />
 		
 		<!-- Canonical URL -->
@@ -42,6 +47,11 @@ const fullTitle = `${title} | ${siteName}`;
 
 		<!-- Verification Tags -->
 		<meta name="google-site-verification" content="mBOlrnkmkuBxLB4emz3P39rRv4tPD69ulMabTnjVuOE" />
+		<meta name="author" content="Younes El Alami" />
+		<meta name="theme-color" content="#1a1b26" />
+
+		<!-- RSS Feed -->
+		<link rel="alternate" type="application/rss+xml" title="shadhq blog" href="/rss.xml" />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content={articleDate ? "article" : "website"} />
@@ -49,6 +59,9 @@ const fullTitle = `${title} | ${siteName}`;
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={new URL(image, Astro.url)} />
+		<meta property="og:image:alt" content={title} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
 		{articleDate && <meta property="article:published_time" content={articleDate} />}
 
 		<!-- Twitter -->
@@ -57,6 +70,12 @@ const fullTitle = `${title} | ${siteName}`;
 		<meta property="twitter:title" content={fullTitle} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={new URL(image, Astro.url)} />
+		{readingTime && (
+			<>
+				<meta name="twitter:label1" content="Reading time" />
+				<meta name="twitter:data1" content={`${readingTime} minutes`} />
+			</>
+		)}
 
 		<!-- Plausible Analytics -->
 		<script defer data-domain="blog.shadhq.com" src="https://plausible.io/js/script.js"></script>
@@ -83,7 +102,7 @@ const fullTitle = `${title} | ${siteName}`;
 			})} />
 		)}
 	</head>
-	<body class="bg-transparent text-tokyo-fg font-mono overflow-x-hidden transition-colors duration-500">
+	<body class="bg-tokyo-bg text-tokyo-fg font-mono overflow-x-hidden">
 		<canvas id="canvas-starfield" class="fixed inset-0 w-full h-full z-0 bg-tokyo-bg" style="pointer-events: none;"></canvas>
 		
 		<button id="motion-toggle" class="fixed top-4 right-4 z-40 bg-tokyo-bg-alt/80 backdrop-blur-md border border-tokyo-comment text-tokyo-comment hover:text-tokyo-fg hover:border-tokyo-fg px-3 py-1.5 rounded-md text-xs transition-all duration-300 shadow-lg cursor-pointer uppercase tracking-widest hidden md:block">
@@ -174,7 +193,8 @@ const fullTitle = `${title} | ${siteName}`;
 				function resize() {
 					scale = window.devicePixelRatio || 1;
 					width = window.innerWidth * scale;
-					height = window.innerHeight * scale;
+					// Limit height to viewport height to avoid massive canvases on long pages
+					height = Math.min(window.innerHeight, 2000) * scale;
 					canvas.width = width;
 					canvas.height = height;
 					stars.forEach(placeStar);
@@ -218,6 +238,12 @@ const fullTitle = `${title} | ${siteName}`;
 
 				function step() {
 					if (!context) return;
+					// Skip animation for crawlers/bots to save resources and avoid massive canvas rendering issues
+					if (/bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent)) {
+						update();
+						render();
+						return; 
+					}
 					context.clearRect(0, 0, width, height);
 					update();
 					render();

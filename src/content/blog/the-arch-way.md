@@ -1,10 +1,11 @@
 ---
 title: "The Arch Way"
 description: "What I've learned after years of following the Arch Way philosophy"
-pubDate: 2026-04-23
-updatedDate: 2026-04-30
+pubDate: 2026-05-02
+updatedDate: 2026-05-02
 image: "/og-arch-way.jpg"
 tags: ["linux"]
+keywords: "why use arch linux, the arch way philosophy, arch linux mastery guide, minimalist linux desktop setup, arch linux vs windows efficiency, arch linux stability guide, btrfs snapper backup strategy, ownership of digital life linux, tiling window manager workflow, linux command line efficiency, arch linux rolling release explained"
 ---
 
 ### Reclaiming the Machine
