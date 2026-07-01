@@ -122,8 +122,8 @@
 }
 
 canvas#gradient-gl {
-    z-index: 0;
-    mix-blend-mode: soft-light;
+  mix-blend-mode: soft-light;
+  filter: blur(10px);
 }
 
 @keyframes cursorBlink {
