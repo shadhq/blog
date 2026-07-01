@@ -22,7 +22,14 @@ jobs:
           node-version: "24"
       - name: Install dependencies
         run: npm ci
+      - name: Install Chrome for Puppeteer
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
       - name: Generate Resume PDF
+        env:
+          PUPPETEER_EXECUTABLE_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}
         run: npx resumed export public/resume.json --output public/younes.el-alami.resume.pdf --theme jsonresume-theme-stackoverflow --puppeteer-arg="--no-sandbox" --puppeteer-arg="--disable-setuid-sandbox"
       - name: Build with Astro
         run: npm run build
