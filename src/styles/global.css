@@ -121,6 +121,10 @@
   opacity: 0.3;
 }
 
+canvas#gradient-gl {
+    z-index: 0;
+    mix-blend-mode: soft-light;
+}
 
 @keyframes cursorBlink {
   0%, 100% { opacity: 1; }
